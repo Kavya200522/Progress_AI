@@ -375,7 +375,15 @@ export async function createDemoGoal(userId: string): Promise<string> {
       .eq("id", done[i]!.id);
   }
 
-  const logs: Record<string, unknown>[] = [];
+  const logs: {
+    user_id: string;
+    goal_id: string;
+    date: string;
+    time_spent_minutes: number;
+    difficulty: string | null;
+    mood: string | null;
+    notes: string | null;
+  }[] = [];
   for (let day = 0; day <= 37; day++) {
     if (day % 6 === 5) continue; // a couple of rest days
     logs.push({
@@ -383,8 +391,8 @@ export async function createDemoGoal(userId: string): Promise<string> {
       goal_id: goalId,
       date: addDays(start, day),
       time_spent_minutes: 35 + ((day * 17) % 55),
-      difficulty: ["easy", "moderate", "difficult"][day % 3],
-      mood: ["okay", "good", "very_good"][day % 3],
+      difficulty: ["easy", "moderate", "difficult"][day % 3]!,
+      mood: ["okay", "good", "very_good"][day % 3]!,
       notes: null,
     });
   }
