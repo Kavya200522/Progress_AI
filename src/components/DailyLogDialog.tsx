@@ -86,9 +86,13 @@ export function DailyLogDialog({
 
   const submit = async () => {
     const mins = Number(minutes);
-    if (!date) return toast.error("Please pick a date.");
+    if (!date) {
+      toast.error("Please pick a date.");
+      return;
+    }
     if (!Number.isFinite(mins) || mins < 0 || mins > 1440) {
-      return toast.error("Enter the time you spent in minutes (0-1440).");
+      toast.error("Enter the time you spent in minutes (0-1440).");
+      return;
     }
     setSaving(true);
     try {
