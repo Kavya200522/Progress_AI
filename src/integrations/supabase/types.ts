@@ -14,7 +14,261 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      daily_progress: {
+        Row: {
+          created_at: string
+          date: string
+          difficulty: string | null
+          goal_id: string
+          id: string
+          mood: string | null
+          notes: string | null
+          time_spent_minutes: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          date?: string
+          difficulty?: string | null
+          goal_id: string
+          id?: string
+          mood?: string | null
+          notes?: string | null
+          time_spent_minutes?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          difficulty?: string | null
+          goal_id?: string
+          id?: string
+          mood?: string | null
+          notes?: string | null
+          time_spent_minutes?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daily_progress_goal_id_fkey"
+            columns: ["goal_id"]
+            isOneToOne: false
+            referencedRelation: "goals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      daily_task_completion: {
+        Row: {
+          completed: boolean
+          created_at: string
+          daily_progress_id: string
+          id: string
+          task_id: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          created_at?: string
+          daily_progress_id: string
+          id?: string
+          task_id: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          created_at?: string
+          daily_progress_id?: string
+          id?: string
+          task_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daily_task_completion_daily_progress_id_fkey"
+            columns: ["daily_progress_id"]
+            isOneToOne: false
+            referencedRelation: "daily_progress"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "daily_task_completion_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      goals: {
+        Row: {
+          created_at: string
+          current_level: string
+          daily_available_minutes: number
+          description: string | null
+          duration_days: number
+          id: string
+          is_demo: boolean
+          start_date: string
+          status: string
+          target_date: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_level?: string
+          daily_available_minutes?: number
+          description?: string | null
+          duration_days?: number
+          id?: string
+          is_demo?: boolean
+          start_date?: string
+          status?: string
+          target_date: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current_level?: string
+          daily_available_minutes?: number
+          description?: string | null
+          duration_days?: number
+          id?: string
+          is_demo?: boolean
+          start_date?: string
+          status?: string
+          target_date?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      milestones: {
+        Row: {
+          created_at: string
+          description: string | null
+          estimated_days: number
+          goal_id: string
+          id: string
+          order_index: number
+          status: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          estimated_days?: number
+          goal_id: string
+          id?: string
+          order_index?: number
+          status?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          estimated_days?: number
+          goal_id?: string
+          id?: string
+          order_index?: number
+          status?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "milestones_goal_id_fkey"
+            columns: ["goal_id"]
+            isOneToOne: false
+            referencedRelation: "goals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          daily_reminder: boolean
+          display_name: string | null
+          email: string | null
+          id: string
+          theme: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          daily_reminder?: boolean
+          display_name?: string | null
+          email?: string | null
+          id: string
+          theme?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          daily_reminder?: boolean
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          theme?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tasks: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          description: string | null
+          estimated_minutes: number
+          id: string
+          milestone_id: string
+          order_index: number
+          status: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          estimated_minutes?: number
+          id?: string
+          milestone_id: string
+          order_index?: number
+          status?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          estimated_minutes?: number
+          id?: string
+          milestone_id?: string
+          order_index?: number
+          status?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_milestone_id_fkey"
+            columns: ["milestone_id"]
+            isOneToOne: false
+            referencedRelation: "milestones"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
