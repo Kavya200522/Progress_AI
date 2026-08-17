@@ -26,16 +26,16 @@ export const roadmapSchema = z.object({
 /** Deterministic demo roadmap used when the AI service is unavailable. */
 export function mockRoadmap(goalTitle: string, durationDays: number): RoadmapDraft {
   const chunk = Math.max(3, Math.round(durationDays / 5));
-  const phases = [
-    ["Foundations", "Build the base knowledge and set up your working environment."],
-    ["Core practice", "Work through the essential skills with daily hands-on reps."],
-    ["Applied work", "Apply what you know to a small, realistic piece of work."],
-    ["Depth & gaps", "Close weak spots and go deeper on the hardest parts."],
-    ["Final project", "Ship one complete result that proves the goal is reached."],
+  const phases: { title: string; description: string }[] = [
+    { title: "Foundations", description: "Build the base knowledge and set up your working environment." },
+    { title: "Core practice", description: "Work through the essential skills with daily hands-on reps." },
+    { title: "Applied work", description: "Apply what you know to a small, realistic piece of work." },
+    { title: "Depth & gaps", description: "Close weak spots and go deeper on the hardest parts." },
+    { title: "Final project", description: "Ship one complete result that proves the goal is reached." },
   ];
   return {
-    milestones: phases.map(([title, description], i) => ({
-      title: `${title}`,
+    milestones: phases.map(({ title, description }, i) => ({
+      title,
       description: `${description} (${goalTitle})`,
       estimated_days: chunk,
       tasks: [
@@ -46,4 +46,5 @@ export function mockRoadmap(goalTitle: string, durationDays: number): RoadmapDra
       ],
     })),
   };
+
 }
