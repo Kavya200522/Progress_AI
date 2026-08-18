@@ -34,14 +34,14 @@ function SettingsPage() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (profile?.full_name) setName(profile.full_name);
-  }, [profile?.full_name]);
+    if (profile?.display_name) setName(profile.display_name);
+  }, [profile?.display_name]);
 
   const save = async () => {
     if (!user) return;
     setSaving(true);
     try {
-      await updateProfile(user.id, { full_name: name.trim() });
+      await updateProfile(user.id, { display_name: name.trim() });
       await refetch();
       toast.success("Profile updated.");
     } catch {
